@@ -38,7 +38,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     "corsheaders",
     'rest_framework',
-    'api', 
+    'api',
+    'drf_yasg',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -83,20 +84,20 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-MYSQL_DB_NAME = getenv('MYSQL_DB_NAME', 'edutech')
-MYSQL_DB_USER = getenv('MYSQL_DB_USER', 'edutech_user')
-MYSQL_DB_PASSWORD = getenv('MYSQL_DB_PASSWORD', '@edutech_001')
+MYSQL_DB_NAME = getenv('MYSQL_DB_NAME', 'e_teach')
+MYSQL_DB_USER = getenv('MYSQL_DB_USER', 'admin')
+MYSQL_DB_PASSWORD = getenv('MYSQL_DB_PASSWORD', 'new_password')
 MYSQL_DB_HOST = getenv('MYSQL_DB_HOST', 'localhost')
 MYSQL_DB_PORT = getenv('MYSQL_DB_PORT', '3306')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': MYSQL_DB_NAME,
-        'USER': MYSQL_DB_USER,
-        'PASSWORD': MYSQL_DB_PASSWORD,
-        'HOST': MYSQL_DB_HOST,   
-        'PORT': MYSQL_DB_PORT,
+        'NAME': 'e_teach',
+        'USER': 'admin',
+        'PASSWORD': 'new_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
