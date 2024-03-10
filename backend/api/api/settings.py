@@ -29,7 +29,7 @@ DEBUG = True
 
 #ALLOWED_HOSTS = []
 #CORS_ORIGIN_ALLOW_ALL = True
-#ALLOWED_HOSTS = ['edutech-36t5.onrender.com']
+#ALLOWED_HOSTS = ['e-teach-11.onrender.com']
 CORS_ORIGIN_ALLOW_ALL = True
 
 
