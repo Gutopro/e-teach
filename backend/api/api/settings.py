@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-MYSQL_DB_NAME = getenv('MYSQL_DB_NAME', 'e_teach')
+MYSQL_DB_NAME = getenv('MYSQL_DB_NAME', 'eteach4kids')
 MYSQL_DB_USER = getenv('MYSQL_DB_USER', 'admin')
 MYSQL_DB_PASSWORD = getenv('MYSQL_DB_PASSWORD', 'new_password')
 MYSQL_DB_HOST = getenv('MYSQL_DB_HOST', 'localhost')
@@ -93,7 +93,7 @@ MYSQL_DB_PORT = getenv('MYSQL_DB_PORT', '3306')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'e_teach',
+        'NAME': 'eteach4kids',
         'USER': 'admin',
         'PASSWORD': 'new_password',
         'HOST': 'localhost',

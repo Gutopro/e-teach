@@ -20,9 +20,14 @@ from .views.admin import admin_list, admin_detail, admin_login
 from .views.learner import create_learner, learner_details, learner_login, register_for_course, get_learners_courses
 from .views.courses import course_list, course_detail, course_material_list, course_material_detail
 from .views.course_materials import create_course_material, get_course_material
+from .views.assessment import create_assessment, AssessmentViewSet
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework.routers import DefaultRouter
+
+
+
 
 schema_view = get_schema_view(
        openapi.Info(
@@ -36,6 +41,10 @@ schema_view = get_schema_view(
        public=True,
        permission_classes=(permissions.AllowAny,),
     )
+
+router = DefaultRouter()
+router.register(r'assessment', AssessmentViewSet, basename='assessment')
+urlpatterns = router.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -53,6 +62,8 @@ urlpatterns = [
     path('courses/<int:id>', course_detail),
     path('course_materials', create_course_material),
     path('course_materials/<int:id>', get_course_material),
+    path('assessments/create/', create_assessment),
+    
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
