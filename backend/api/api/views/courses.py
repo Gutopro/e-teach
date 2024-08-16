@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
 
 from api.utils.jwt_utils import get_user_from_request
 
@@ -13,7 +14,7 @@ from ..models.course_material import CourseMaterial
 from ..serializers.course import CourseSerializer, CourseUpdateSerializer
 from ..serializers.course_material import CourseMaterialSerializer, CourseMaterialUpdateSerializer
 
-
+@cache_page(60 * 15)
 @api_view(['GET', 'POST'])
 def course_list(request):
     """Create a course or get the list of courses with filters and pagination"""

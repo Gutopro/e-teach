@@ -27,9 +27,9 @@ SECRET_KEY = 'django-insecure-pyb0qgk&&7=&s8q3n!gax=2c^2^mt-03)@@a2_!&+&s9@_^tz_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = []
-#CORS_ORIGIN_ALLOW_ALL = True
-#ALLOWED_HOSTS = ['e-teach-11.onrender.com']
+# ALLOWED_HOSTS = []
+# CORS_ORIGIN_ALLOW_ALL = True
+# ALLOWED_HOSTS = ['e-teach-11.onrender.com']
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "corsheaders",
     'rest_framework',
     'api',
+    'redis',
     'drf_yasg',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,13 +52,16 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -84,23 +88,35 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-MYSQL_DB_NAME = getenv('MYSQL_DB_NAME', 'eteach4kids')
+MYSQL_DB_NAME = getenv('MYSQL_DB_NAME', 'edutech')
 MYSQL_DB_USER = getenv('MYSQL_DB_USER', 'admin')
-MYSQL_DB_PASSWORD = getenv('MYSQL_DB_PASSWORD', 'new_password')
+MYSQL_DB_PASSWORD = getenv('MYSQL_DB_PASSWORD', '123Biochemist$')
 MYSQL_DB_HOST = getenv('MYSQL_DB_HOST', 'localhost')
 MYSQL_DB_PORT = getenv('MYSQL_DB_PORT', '3306')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'eteach4kids',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'edutech',
         'USER': 'admin',
-        'PASSWORD': 'new_password',
+        'PASSWORD': '123Biochemist$',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_CACHE_ALIAS = 'default'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -143,6 +159,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
-#AUTH_USER_MODEL = 'models.admin.Admin'
+# AUTH_USER_MODEL = 'models.admin.Admin'
